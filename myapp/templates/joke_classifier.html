@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke Classifier</title>
+</head>
+<body>
+    <h1>Classify Your Joke</h1>
+    <form method="POST" action="{% url 'classify_joke' %}">
+        {% csrf_token %}
+        <label for="joke_input">Enter your joke:</label><br>
+        <textarea id="joke_input" name="joke_input" rows="4" cols="50" required></textarea><br>
+        <button type="submit">Classify Joke</button>
+    </form>
+    
+    <h2>Joke Category:</h2>
+    <p id="joke_category">{{ joke_category }}</p>  <!-- Display the joke category here -->
+</body>
+</html>

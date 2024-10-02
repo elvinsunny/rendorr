@@ -1,0 +1,175 @@
+/* Reset default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Global settings */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('p.jpg'); /* Add your background image */
+    background-size: cover;
+    background-position: center top; /* This centers the image but aligns it to the top */
+    background-position-y: 20%; /* Moves the image down slightly (adjust this value to your preference) */
+    background-attachment: fixed;
+    color: #fff;
+    padding-top: 60px; /* Space for the fixed navbar */
+}
+
+/* Navbar customization */
+.navbar {
+    padding: 15px;
+    background-color: rgba(52, 58, 64, 0.7); /* Adjust opacity here */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Keeps the navbar on top of other elements */
+    backdrop-filter: blur(10px); /* Adds a blur effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+}
+
+
+
+
+/* Sidebar styling */
+.sidebar {
+    height: 100%;
+    width: 0; /* Default width is 0, will expand when opened */
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s; /* Smooth transition for sidebar open/close */
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Main content shifts when sidebar is opened */
+#main {
+    transition: margin-left 0.5s; /* Smooth transition for main content shift */
+    padding: 16px;
+}
+
+/* Header customization */
+header {
+    text-align: center;
+    padding: 50px 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: To darken the background for contrast */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust padding for the rest of the content */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+/* Rest of the styles */
+.row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+/* Card styles */
+.card {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 30px;
+    max-width: 500px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.btn-lg {
+    width: 80%;
+    padding: 15px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-lg {
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+}
+
+/* About Us Section Styling (Optional) */
+#about-us h2 {
+    font-size: 2.5rem;
+    color: #343a40;
+}
+
+#about-us p {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+#about-us {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+    border-top: 1px solid #eaeaea;
+}

@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke Feedback Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Joke Feedback (Likes vs Dislikes)</h1>
+        <canvas id="feedbackChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('feedbackChart').getContext('2d');
+        const feedbackChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ joke_texts|safe }},  // X-axis: jokes
+                datasets: [
+                    {
+                        label: 'Likes',
+                        data: {{ like_counts|safe }},  // Y-axis: number of likes
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Dislikes',
+                        data: {{ dislike_counts|safe }},  // Y-axis: number of dislikes
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

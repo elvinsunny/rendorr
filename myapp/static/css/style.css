@@ -1,0 +1,213 @@
+
+/* Reset default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Global settings */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('p.jpg'); /* Add your background image */
+    background-size: cover;
+    background-position: center top; /* This centers the image but aligns it to the top */
+    background-position-y: 20%; /* Moves the image down slightly (adjust this value to your preference) */
+    background-attachment: fixed;
+    color: #fff;
+    padding-top: 60px; /* Space for the fixed navbar */
+}
+
+/* Navbar customization */
+.navbar {
+    padding: 15px;
+    background-color: rgba(52, 58, 64, 0.7); /* Adjust opacity here */
+    position: fixed;
+    top: -70px; /* Hide it initially */
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Keeps the navbar on top of other elements */
+    backdrop-filter: blur(10px); /* Adds a blur effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    transition: top 0.3s ease; /* Smoothly slide the navbar in and out */
+}
+
+
+
+/* Enhanced Sidebar Styling */
+.sidebar {
+    height: 100%;
+    width: 0; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111; /* Dark background */
+    overflow-x: hidden;
+    transition: width 0.4s ease; /* Smooth transition for open/close */
+    padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Add a shadow for depth */
+}
+
+.sidebar a {
+    padding: 12px 10px 12px 30px; /* Add padding */
+    text-decoration: none;
+    font-size: 18px;
+    color: #dcdcdc; /* Soft text color */
+    display: block;
+    transition: 0.3s; /* Smooth transition for hover effect */
+}
+
+.sidebar a:hover {
+    color: #ffffff; /* Brighten text on hover */
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle background highlight */
+    border-left: 4px solid #f8b400; /* Highlight with a left border on hover */
+}
+
+.sidebar .navbar-brand {
+    font-size: 1.5rem;
+    color: #f8b400; /* Use brand color */
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.sidebar a i {
+    margin-right: 15px;
+}
+
+.sidebar .btn-link {
+    padding: 0;
+    color: #dcdcdc;
+}
+
+.sidebar .btn-link:hover {
+    color: #ffffff;
+}
+
+/* Sidebar transition when opened */
+#main {
+    transition: margin-left 0.4s ease;
+    padding: 16px;
+}
+
+/* Optional: Style for active link (if desired) */
+.sidebar a.active {
+    background-color: rgba(248, 180, 0, 0.3); /* Highlight the active link */
+    color: white;
+    border-left: 4px solid #f8b400;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .sidebar a {
+        font-size: 16px;
+        padding: 12px 8px;
+    }
+}
+
+/* Main content shifts when sidebar is opened */
+#main {
+    transition: margin-left 0.5s; /* Smooth transition for main content shift */
+    padding: 16px;
+}
+
+/* Header customization */
+header {
+    text-align: center;
+    padding: 50px 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: To darken the background for contrast */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust padding for the rest of the content */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+/* Rest of the styles */
+.row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+/* Card styles */
+.card {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 30px;
+    max-width: 500px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.btn-lg {
+    width: 80%;
+    padding: 15px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-lg {
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+}
+
+/* About Us Section Styling (Optional) */
+#about-us h2 {
+    font-size: 2.5rem;
+    color: #343a40;
+}
+
+#about-us p {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+#about-us {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+    border-top: 1px solid #eaeaea;
+}

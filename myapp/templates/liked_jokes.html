@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liked Jokes</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f1f3f4;
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+        }
+
+        .joke-container {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .joke-container:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .joke-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .categories {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .no-jokes-message {
+            font-size: 20px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mt-4">Your Liked Jokes</h1>
+
+        {% if liked_jokes %}
+            <div class="mt-4">
+                {% for feedback in liked_jokes %}
+                    <div class="joke-container">
+                        <p class="joke-text">{{ feedback.joke.joke_text }}</p>
+                        <p class="categories">Categories: {{ feedback.joke.categories }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-jokes-message">You haven't liked any jokes yet!</p>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies (jQuery, Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

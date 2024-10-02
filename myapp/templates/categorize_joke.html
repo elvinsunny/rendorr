@@ -1,0 +1,36 @@
+{% extends 'base2.html' %}
+
+{% block title %}Joke Categorizer{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Joke Categorizer</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post" id="joke-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="joke_input">Enter your joke:</label>
+                    <textarea id="joke_input" name="joke_input" class="form-control" rows="4" placeholder="Type your joke here...">{{ joke_input }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Categorize Joke</button>
+                <div class="loader" id="loader"></div>
+            </form>
+
+            {% if categorized_response %}
+            <div class="response-box">
+                <h2>Model's Response:</h2>
+                <pre>{{ categorized_response }}</pre>
+                
+                {% if joke and joke.id %}
+                <div class="feedback-btns">
+                    <a href="{% url 'joke_feedbacks' joke.id 'like' %}" class="like-btn"><i class="fas fa-thumbs-up"></i> Like</a>
+                    <a href="{% url 'joke_feedbacks' joke.id 'dislike' %}" class="dislike-btn"><i class="fas fa-thumbs-down"></i> Dislike</a>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

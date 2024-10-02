@@ -1,0 +1,30 @@
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Registered Users</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Time Spent on Website</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_profile in users %}
+            <tr>
+                <td>{{ user_profile.user.username }}</td>
+                <td>{{ user_profile.user.email }}</td>
+                <td>
+                    {% if user_profile.total_time_spent %}
+                        {{ user_profile.total_time_spent.total_seconds|floatformat:0 }} seconds
+                    {% else %}
+                        0 seconds
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

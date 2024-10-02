@@ -1,0 +1,265 @@
+{% comment %} {% load static %}
+<!-- templates/generate_joke.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Joke Generator</title>
+</head>
+<body>
+    <h1>Generative AI Joke Generator</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="language">Select Language:</label>
+        <select name="language" id="language">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Malayalam">Malayalam</option>
+        </select>
+
+        <label for="joke_type">Select Joke Type:</label>
+        <select name="joke_type" id="joke_type">
+            <option value="Dark Humor">Dark Humor</option>
+            <option value="Pun">Pun</option>
+            <option value="Dad Joke">Dad Joke</option>
+            <option value="Sarcasm">Sarcasm</option>
+            <option value="One-liner">One-liner</option>
+        </select>
+
+        <label for="joke_context">Select Joke Context:</label>
+        <select name="joke_context" id="joke_context">
+            <option value="Work">Work</option>
+            <option value="School">School</option>
+            <option value="Family">Family</option>
+            <option value="Relationships">Relationships</option>
+            <option value="Technology">Technology</option>
+        </select>
+
+        <button type="submit">Generate Joke</button>
+    </form>
+
+    {% if joke_response %}
+        <h2>Generated Joke:</h2>
+        <p>{{ joke_response }}</p>
+    {% endif %}
+</body>
+</html> {% endcomment %}
+
+
+{% comment %} 
+
+{%  load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Joke Generator</title>
+</head>
+<body>
+    <h1>Generate a Joke</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="language">Select Language:</label>
+        <select name="language">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Malayalam">Malayalam</option>
+        </select>
+
+        <label for="joke_type">Select Joke Type:</label>
+        <select name="joke_type">
+            <option value="Dark Humor">Dark Humor</option>
+            <option value="Pun">Pun</option>
+            <option value="Dad Joke">Dad Joke</option>
+            <option value="Sarcasm">Sarcasm</option>
+            <option value="One-liner">One-liner</option>
+        </select>
+
+        <label for="joke_context">Select Joke Context:</label>
+        <select name="joke_context">
+            <option value="Work">Work</option>
+            <option value="School">School</option>
+            <option value="Family">Family</option>
+            <option value="Relationships">Relationships</option>
+            <option value="Technology">Technology</option>
+        </select>
+
+        <button type="submit">Generate Joke</button>
+    </form>
+
+    {% if generated_joke %}
+        <h2>Generated Joke:</h2>
+        <p>{{ generated_joke }}</p>
+
+        <!-- Like and Dislike Buttons -->
+        <form method="POST" action="{% url 'joke_feedback' joke_object.id 'like' %}">
+            {% csrf_token %}
+            <button type="submit">Like</button>
+        </form>
+
+        <form method="POST" action="{% url 'joke_feedback' joke_object.id 'dislike' %}">
+            {% csrf_token %}
+            <button type="submit">Dislike</button>
+        </form>
+    {% endif %}
+</body>
+</html> {% endcomment %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke Generator</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .joke-container {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .generate-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .like-btn, .dislike-btn {
+            width: 100px;
+        }
+
+        .like-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .dislike-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .feedback-btns {
+            margin-top: 20px;
+        }
+
+        .feedback-btns form {
+            display: inline-block;
+        }
+
+        .generated-joke {
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="joke-container mx-auto col-lg-6">
+            <h1 class="text-center">Generative AI Joke Generator</h1>
+
+            <form method="POST" class="mt-4">
+                {% csrf_token %}
+                
+                <!-- Language Selection -->
+                <div class="mb-3">
+                    <label for="language" class="form-label">Select Language:</label>
+                    <select name="language" id="language" class="form-select">
+                        <option value="English">English</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Malayalam">Malayalam</option>
+                    </select>
+                </div>
+
+                <!-- Joke Type Selection -->
+                <div class="mb-3">
+                    <label for="joke_type" class="form-label">Select Joke Type:</label>
+                    <select name="joke_type" id="joke_type" class="form-select">
+                        <option value="Dark Humor">Dark Humor</option>
+                        <option value="Pun">Pun</option>
+                        <option value="Dad Joke">Dad Joke</option>
+                        <option value="Sarcasm">Sarcasm</option>
+                        <option value="One-liner">One-liner</option>
+                    </select>
+                </div>
+
+                <!-- Joke Context Selection -->
+                <div class="mb-3">
+                    <label for="joke_context" class="form-label">Select Joke Context:</label>
+                    <select name="joke_context" id="joke_context" class="form-select">
+                        <option value="Work">Work</option>
+                        <option value="School">School</option>
+                        <option value="Family">Family</option>
+                        <option value="Relationships">Relationships</option>
+                        <option value="Technology">Technology</option>
+                    </select>
+                </div>
+
+                <!-- Generate Joke Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn generate-btn btn-lg">Generate Joke</button>
+                </div>
+            </form>
+
+            {% if generated_joke %}
+            <!-- Generated Joke Section -->
+            <div class="generated-joke text-center mt-5">
+                <h2>Generated Joke:</h2>
+                <p class="lead">{{ generated_joke }}</p>
+                
+                <!-- Like and Dislike Buttons -->
+                <div class="feedback-btns text-center">
+                    <form method="POST" action="{% url 'joke_feedback' joke_object.id 'like' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn like-btn">Like</button>
+                    </form>
+
+                    <form method="POST" action="{% url 'joke_feedback' joke_object.id 'dislike' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn dislike-btn">Dislike</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <!-- Optional JavaScript for additional interactivity (if needed) -->
+    <script>
+        // Example: Additional feedback after clicking the like/dislike buttons (optional)
+        document.querySelectorAll('.like-btn, .dislike-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                alert(`Thank you for your feedback!`);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
+
+

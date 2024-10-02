@@ -1,0 +1,71 @@
+{% block content %}
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card p-4 shadow-lg" style="width: 400px;">
+            <h2 class="text-center mb-4">Login</h2>
+            <form method="post" id="loginForm">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>
+            </form>
+            <div class="text-center mt-3">
+                <p>Don't have an account? 
+                    <a href="{% url 'register' %}" class="text-decoration-none">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #6d83f2, #50c5b7);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .card {
+            border-radius: 15px;
+        }
+        
+        h2 {
+            font-weight: bold;
+            color: #3c40c6;
+        }
+        
+        input {
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
+        .btn-primary {
+            background-color: #3c40c6;
+            border-color: #3c40c6;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5766da;
+            border-color: #5766da;
+        }
+
+        .text-decoration-none {
+            color: #3c40c6;
+        }
+        
+        .text-decoration-none:hover {
+            color: #5766da;
+        }
+    </style>
+
+    <script>
+        // Simple JavaScript for enhancing form interaction
+        const form = document.getElementById('loginForm');
+        
+        form.addEventListener('submit', function(event) {
+            const button = event.target.querySelector('button');
+            button.innerHTML = 'Logging in...';
+            button.disabled = true;
+        });
+    </script>
+{% endblock %}

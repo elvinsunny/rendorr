@@ -1,0 +1,25 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+    <!-- Main content -->
+    <div id="main" style="padding: 20px;">
+        <header>
+            <h1>Generate a Joke</h1>
+            <p>Click the button below to generate a joke using AI based on your preferred category and context.</p>
+        </header>
+
+        <div class="container text-center mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-dark">
+                            <h3 class="card-title">Generate a Joke</h3>
+                            <p class="card-text">Click the button to generate a joke using our advanced AI technology!</p>
+                            <a href="{% url 'generate_joke' %}" class="btn btn-success btn-lg">Generate Joke</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

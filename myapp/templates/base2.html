@@ -1,0 +1,395 @@
+{% comment %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Add styles for the sidebar */
+        .sidebar {
+            height: 100%;
+            width: 0; /* Initially hidden */
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111; /* Black */
+            overflow-x: hidden; /* Disable horizontal scroll */
+            transition: 0.5s; /* Transition effect for opening */
+            padding-top: 60px; /* Space for top */
+        }
+
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: block;
+            transition: 0.3s; /* Transition for hover */
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1; /* Light color on hover */
+        }
+
+        .closebtn {
+            font-size: 30px;
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            cursor: pointer; /* Change cursor to pointer */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="mySidebar" class="sidebar">
+        <span class="closebtn" onclick="closeNav()">&times;</span> <!-- Close button -->
+        <a class="navbar-brand ml-3" href="#main"><i class="fas fa-laugh-beam"></i> AI Joke Hub</a>
+        
+        <a href="#main"><i class="fas fa-home"></i> Home</a>
+        <a href="{% url 'liked_jokes' %}"><i class="fas fa-heart"></i> Liked Jokes</a>
+        <a href="https://elvinsunny-joke-streamlit-joke-oadmgv.streamlit.app/" target="_blank">
+            <i class="fas fa-link"></i> Streamlit Integration
+        </a>
+        <a href="#about-us"><i class="fas fa-info-circle"></i> About Us</a>
+
+        {% if user.is_authenticated %}
+            <a href="#"><i class="fas fa-user"></i> Profile</a>
+            <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link" style="display: inline; padding: 0; text-decoration: none;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login/Register</a>
+        {% endif %}
+    </div>
+
+    <!-- Main content -->
+    <div id="main" style="padding: 20px;">
+        <h1>Welcome to the AI Joke Hub</h1>
+        <p>Hover near the left edge of the screen to open the sidebar or click the button above.</p>
+    </div>
+
+    <!-- JavaScript for Sidebar -->
+    <script>
+        let sidebar = document.getElementById("mySidebar");
+        let mainContent = document.getElementById("main");
+        let sidebarOpen = false;
+
+        // Function to open the sidebar
+        function openNav() {
+            sidebar.style.width = "250px";
+            mainContent.style.marginLeft = "250px";
+            sidebarOpen = true;
+        }
+
+        // Function to close the sidebar
+        function closeNav() {
+            sidebar.style.width = "0";
+            mainContent.style.marginLeft = "0";
+            sidebarOpen = false;
+        }
+
+        // Mousemove event listener to handle opening and closing of the sidebar
+        document.addEventListener("mousemove", function(event) {
+            // Open sidebar when mouse is near the left edge (within 50px)
+            if (event.clientX < 50 && !sidebarOpen) {
+                openNav();
+            }
+
+            // Close sidebar when mouse is away from the sidebar (more than 250px away from the left edge)
+            if (sidebarOpen && event.clientX > 250) {  // Adjust this based on the sidebar width
+                closeNav();
+            }
+        });
+
+        // Optional: Click outside to close sidebar
+        document.addEventListener("click", function(event) {
+            // If the click is outside the sidebar and it's open, close it
+            if (sidebarOpen && !sidebar.contains(event.target) && event.clientX > 250) {
+                closeNav();
+            }
+        });
+    </script>
+</body>
+
+</html> {% endcomment %}
+
+
+
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sidebar{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/sty.css' %}">
+    <style>
+        body {
+            background-color: #f1f3f4;
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0; /* Initially hidden */
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111; /* Black */
+            overflow-x: hidden; /* Disable horizontal scroll */
+            transition: 0.5s; /* Transition effect for opening */
+            padding-top: 60px; /* Space for top */
+        }
+
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: block;
+            transition: 0.3s; /* Transition for hover */
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1; /* Light color on hover */
+        }
+
+        .closebtn {
+            font-size: 30px;
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        .container {
+            margin-top: 50px;
+            max-width: 700px;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: #343a40;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 40px;
+        }
+
+        textarea {
+            resize: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .response-box {
+            margin-top: 30px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #495057;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+
+        .feedback-btns a {
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: #495057;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .feedback-btns a:hover {
+            text-decoration: none;
+            transform: scale(1.2);
+        }
+
+        .feedback-btns a.like-btn {
+            color: #28a745;
+        }
+
+        .feedback-btns a.dislike-btn {
+            color: #dc3545;
+        }
+
+        .loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('static/css/p.jpg'); /* Add your background image */
+            background-size: cover;
+            background-position: center top; /* This centers the image but aligns it to the top */
+            background-position-y: 20%; /* Moves the image down slightly (adjust this value to your preference) */
+            background-attachment: fixed;
+            color: #fff;
+            padding-top: 60px; /* Space for the fixed navbar */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="mySidebar" class="sidebar">
+        <span class="closebtn" onclick="closeNav()">&times;</span> <!-- Close button -->
+        <a class="navbar-brand ml-3" href="#main"><i class="fas fa-laugh-beam"></i> AI Joke Hub</a>
+
+        <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+        <a href="{% url 'liked_jokes' %}"><i class="fas fa-heart"></i> Liked Jokes</a>
+        <a href="https://elvinsunny-joke-streamlit-joke-oadmgv.streamlit.app/" target="_blank">
+            <i class="fas fa-link"></i> Streamlit Integration
+        </a>
+        <a href="#about-us"><i class="fas fa-info-circle"></i> About Us</a>
+
+        {% if user.is_authenticated %}
+            <a href="#"><i class="fas fa-user"></i> Profile</a>
+            <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link" style="display: inline; padding: 0; text-decoration: none;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login/Register</a>
+        {% endif %}
+    </div>
+
+    <!-- Main content -->
+    <div id="main" style="padding: 20px;">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- JavaScript for Sidebar -->
+    <script>
+        let sidebar = document.getElementById("mySidebar");
+        let mainContent = document.getElementById("main");
+        let sidebarOpen = false;
+
+        // Function to open the sidebar
+        function openNav() {
+            sidebar.style.width = "250px";
+            mainContent.style.marginLeft = "250px";
+            sidebarOpen = true;
+        }
+
+        // Function to close the sidebar
+        function closeNav() {
+            sidebar.style.width = "0";
+            mainContent.style.marginLeft = "0";
+            sidebarOpen = false;
+        }
+
+        // Mousemove event listener to handle opening and closing of the sidebar
+        document.addEventListener("mousemove", function(event) {
+            // Open sidebar when mouse is near the left edge (within 50px)
+            if (event.clientX < 50 && !sidebarOpen) {
+                openNav();
+            }
+
+            // Close sidebar when mouse is away from the sidebar (more than 250px away from the left edge)
+            if (sidebarOpen && event.clientX > 250) {  // Adjust this based on the sidebar width
+                closeNav();
+            }
+        });
+
+        // Optional: Click outside to close sidebar
+        document.addEventListener("click", function(event) {
+            // If the click is outside the sidebar and it's open, close it
+            if (sidebarOpen && !sidebar.contains(event.target) && event.clientX > 250) {
+                closeNav();
+            }
+        });
+    </script>
+
+    <!-- Bootstrap JS and dependencies (jQuery, Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Custom JS for loader -->
+    <script>
+        document.getElementById('joke-form').addEventListener('submit', function() {
+            document.getElementById('loader').style.display = 'inline-block';
+        });
+    </script>
+</body>
+
+</html>

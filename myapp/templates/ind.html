@@ -1,0 +1,254 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Joke Generator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div id="mySidebar" class="sidebar">
+    <a class="navbar-brand ml-3" href="#main"><i class="fas fa-laugh-beam"></i> AI Joke Hub</a>
+    
+    <a href="#main"><i class="fas fa-home"></i> Home</a>
+    <a href="{% url 'liked_jokes' %}"><i class="fas fa-heart"></i> Liked Jokes</a> <!-- Updated Icon -->
+    <a href="https://elvinsunny-joke-streamlit-joke-oadmgv.streamlit.app/" target="_blank">
+        <i class="fas fa-link"></i> Streamlit Integration
+      </a>
+      <a href="#about-us"><i class="fas fa-info-circle"></i> About Us</a> <!-- Updated Icon -->
+
+    
+    {% if user.is_authenticated %}
+        <a href="#"><i class="fas fa-user"></i> Profile</a>
+        <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link" style="display: inline; padding: 0; text-decoration: none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </form>
+    {% else %}
+        <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login/Register</a>
+    {% endif %}
+</div>
+
+    
+    <!-- Main content -->
+    <div id="main">
+
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+            <button class="btn btn-light" onclick="toggleNav()">☰ Menu</button>
+
+            <a class="navbar-brand ml-3" href="#main"><i class="fas fa-laugh-beam"></i> AI Joke Hub</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#main"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about-us"><i class="fas fa-chart-line"></i> About Us</a>
+                    </li>
+                    {% comment %} <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user"></i> Profile</a>
+                    </li> {% endcomment %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-sign-in-alt"></i> Login/Register</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+   
+        <!-- Header Section -->
+         
+        <header>
+            <h1>Welcome to AI Joke Hub</h1>
+            <p>Generate jokes or classify your existing ones using advanced AI technology.</p>
+        </header>
+       
+
+<!-- Main Section -->
+<div class="container text-center mt-5">
+    <div class="row">
+        <!-- Joke Generation -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-lg">
+                <div class="card-body text-dark"> <!-- Add class text-dark -->
+                    <h3 class="card-title">Generate a Joke</h3>
+                    <p class="card-text">Click the button below to generate a joke using AI based on your preferred
+                        category and context!</p>
+                    <a href="{% url 'generate_joke' %}" class="btn btn-success btn-lg">Get Started!</a>
+                </div>
+            </div>
+        </div>
+
+
+                <!-- Joke Classification -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg">
+                        <div class="card-body">
+                            <h3 class="card-title">Classify a Joke</h3>
+                            <p class="card-text">Already have a joke? Let AI classify its category, maturity level, and
+                                context.</p>
+                            <a href="{% url 'categorize_joke' %}" class="btn btn-warning btn-lg">Get Started!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Us Section -->
+        <section id="about-us" class="container-fluid text-center py-5 bg-light">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <h2>About AI Joke Hub</h2>
+                    <p class="lead mt-3">
+                        At AI Joke Hub, we bring humor to the digital age with the power of artificial intelligence.
+                        Whether you're in need of a quick laugh or want to classify the jokes you already know, our AI-based
+                        system is here to assist you. 
+                    </p>
+                    <p>
+                        Our platform generates jokes based on your input, creating personalized humor for every user. 
+                        We also provide tools to categorize jokes by theme, style, or maturity level, making it easier for
+                        everyone to find the type of joke that fits their sense of humor.
+                    </p>
+                    <p>
+                        We're on a mission to make the world a funnier place, one AI-generated joke at a time. Enjoy the 
+                        lighter side of life and explore the limitless possibilities of humor with AI.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 AI Joke Generator. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap and JS dependencies -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let navbar = document.querySelector(".navbar");
+            navbar.style.top = "-70px";  // Move the navbar up by its height
+            navbar.style.transition = "top 0.3s";  // Smooth transition for showing/hiding
+        });
+    
+        // Show the navbar when the mouse is near the top of the page
+        document.addEventListener("mousemove", function (event) {
+            let navbar = document.querySelector(".navbar");
+    
+            if (event.clientY < 50) {
+                // If the mouse is near the top (50px from top), show the navbar
+                navbar.style.top = "0";
+            } else {
+                // Hide the navbar when the mouse moves away
+                navbar.style.top = "-70px";
+            }
+        });
+    
+        let sidebarOpen = false;
+        let sidebar = document.getElementById("mySidebar");
+        let mainContent = document.getElementById("main");
+    
+        // Toggle Sidebar
+        function toggleNav() {
+            if (sidebarOpen) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        }
+    
+        // Open Sidebar
+        function openNav() {
+            sidebar.style.width = "250px";
+            mainContent.style.marginLeft = "250px";
+            sidebarOpen = true;
+            document.addEventListener("click", closeSidebarOnOutsideClick);  // Listen for clicks outside the sidebar
+        }
+    
+        // Close Sidebar
+        function closeNav() {
+            sidebar.style.width = "0";
+            mainContent.style.marginLeft = "0";
+            sidebarOpen = false;
+            document.removeEventListener("click", closeSidebarOnOutsideClick);  // Remove listener when sidebar is closed
+        }
+    
+        // Close the sidebar if clicking outside of it
+        function closeSidebarOnOutsideClick(event) {
+            // Check if the click target is inside the sidebar or the button that opens the sidebar
+            if (!sidebar.contains(event.target) && event.target !== document.querySelector('.btn.btn-light')) {
+                closeNav();  // Close the sidebar if the click was outside
+            }
+        }
+    
+        // Smooth scrolling for navigation links
+        const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+    
+        smoothScrollLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+    
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'  // Enable smooth scrolling
+                    });
+                }
+            });
+        });
+
+        document.addEventListener("mousemove", function(event) {
+            let sidebar = document.getElementById("mySidebar");
+            let mainContent = document.getElementById("main");
+        
+            // Detect mouse position near the left side of the window (within 50px)
+            if (event.clientX < 50) {
+                openNav();
+            } else if (!sidebar.contains(event.target)) {
+                closeNav();
+            }
+        });
+        
+        function openNav() {
+            let sidebar = document.getElementById("mySidebar");
+            let mainContent = document.getElementById("main");
+        
+            sidebar.style.width = "250px";  // Smoothly open to 250px
+            mainContent.style.marginLeft = "250px";
+        }
+        
+        function closeNav() {
+            let sidebar = document.getElementById("mySidebar");
+            let mainContent = document.getElementById("main");
+        
+            sidebar.style.width = "0";  // Smoothly close to 0
+            mainContent.style.marginLeft = "0";
+        }
+        
+    </script>
+    
+    
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Visualization</title>
+    <!-- Include any necessary CSS/JS for visualization -->
+</head>
+<body>
+    <h1>Feedback Visualization</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Joke</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+                <th>Categories</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for joke in joke_data.jokes %}
+                <tr>
+                    <td>{{ joke.text }}</td>
+                    <td>{{ joke.likes }}</td>
+                    <td>{{ joke.dislikes }}</td>
+                    <td>{{ joke.categories|join:", " }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

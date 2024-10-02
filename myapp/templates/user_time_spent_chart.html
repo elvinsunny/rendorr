@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Time Spent Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Add some custom styles to make the chart smaller and centered */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0; /* Remove default margin */
+            background-color: #f8f9fa; /* Light background for contrast */
+        }
+        canvas {
+            max-width: 600px; /* Set max width for the canvas */
+            max-height: 400px; /* Set max height for the canvas */
+            width: 100%; /* Responsive width */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2 style="text-align: center;">Time Spent by Users on Platform</h2>
+        <canvas id="userTimeSpentChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('userTimeSpentChart').getContext('2d');
+        const userTimeSpentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ users|safe }},
+                datasets: [{
+                    label: 'Time Spent (hours)',
+                    data: {{ time_spent|safe }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true, // Make the chart responsive
+                maintainAspectRatio: false, // Allow the aspect ratio to change
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Hours', // Optional: Add a title for the Y-axis
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Users', // Optional: Add a title for the X-axis
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

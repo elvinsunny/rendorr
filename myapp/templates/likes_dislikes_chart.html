@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Likes and Dislikes Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Add custom styles to make the chart smaller and centered */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0; /* Remove default margin */
+            background-color: #f8f9fa; /* Light background for contrast */
+        }
+        canvas {
+            max-width: 600px; /* Set max width for the canvas */
+            max-height: 400px; /* Set max height for the canvas */
+            width: 100%; /* Responsive width */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1 style="text-align: center;">Likes and Dislikes per Category</h1>
+        <canvas id="likesDislikesChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('likesDislikesChart').getContext('2d');
+        const categories = {{ categories|safe }};
+        const likesData = {{ likes_data|safe }};
+        const dislikesData = {{ dislikes_data|safe }};
+
+        const chartData = {
+            labels: categories,
+            datasets: [
+                {
+                    label: 'Likes',
+                    data: likesData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Dislikes',
+                    data: dislikesData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        const config = {
+            type: 'bar',  // Change to 'bar' or 'line' depending on how you want to visualize it
+            data: chartData,
+            options: {
+                responsive: true, // Make the chart responsive
+                maintainAspectRatio: false, // Allow the aspect ratio to change
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Count' // Optional: Add a title for the Y-axis
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Categories' // Optional: Add a title for the X-axis
+                        }
+                    }
+                }
+            }
+        };
+
+        const likesDislikesChart = new Chart(ctx, config);
+    </script>
+</body>
+</html>
