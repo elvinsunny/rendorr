@@ -1,3 +1,4 @@
+
 /* Reset default margins and paddings */
 * {
     margin: 0;
@@ -22,50 +23,87 @@ body {
     padding: 15px;
     background-color: rgba(52, 58, 64, 0.7); /* Adjust opacity here */
     position: fixed;
-    top: 0;
+    top: -70px; /* Hide it initially */
     left: 0;
     width: 100%;
     z-index: 1000; /* Keeps the navbar on top of other elements */
     backdrop-filter: blur(10px); /* Adds a blur effect */
     -webkit-backdrop-filter: blur(10px); /* For Safari */
+    transition: top 0.3s ease; /* Smoothly slide the navbar in and out */
 }
 
 
 
-
-/* Sidebar styling */
+/* Enhanced Sidebar Styling */
 .sidebar {
     height: 100%;
-    width: 0; /* Default width is 0, will expand when opened */
+    width: 0; /* Hidden by default */
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #111; /* Dark background */
     overflow-x: hidden;
-    transition: 0.5s; /* Smooth transition for sidebar open/close */
+    transition: width 0.4s ease; /* Smooth transition for open/close */
     padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Add a shadow for depth */
 }
 
 .sidebar a {
-    padding: 8px 8px 8px 32px;
+    padding: 12px 10px 12px 30px; /* Add padding */
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
+    font-size: 18px;
+    color: #dcdcdc; /* Soft text color */
     display: block;
-    transition: 0.3s;
+    transition: 0.3s; /* Smooth transition for hover effect */
 }
 
 .sidebar a:hover {
-    color: #f1f1f1;
+    color: #ffffff; /* Brighten text on hover */
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle background highlight */
+    border-left: 4px solid #f8b400; /* Highlight with a left border on hover */
 }
 
-.sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+.sidebar .navbar-brand {
+    font-size: 1.5rem;
+    color: #f8b400; /* Use brand color */
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.sidebar a i {
+    margin-right: 15px;
+}
+
+.sidebar .btn-link {
+    padding: 0;
+    color: #dcdcdc;
+}
+
+.sidebar .btn-link:hover {
+    color: #ffffff;
+}
+
+/* Sidebar transition when opened */
+#main {
+    transition: margin-left 0.4s ease;
+    padding: 16px;
+}
+
+/* Optional: Style for active link (if desired) */
+.sidebar a.active {
+    background-color: rgba(248, 180, 0, 0.3); /* Highlight the active link */
+    color: white;
+    border-left: 4px solid #f8b400;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .sidebar a {
+        font-size: 16px;
+        padding: 12px 8px;
+    }
 }
 
 /* Main content shifts when sidebar is opened */
